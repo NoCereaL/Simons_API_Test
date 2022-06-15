@@ -9,43 +9,22 @@ app.listen(
     PORT, () => console.log('its live on http://localhost:${PORT}')
 )
 
-app.get('/tshirt', (req, res) => {
-    res.status(200).send({
-        tshirt: '😀',
-        size: 'large'
-    })
+var colors = ['Red','Orange','Yellow','Pink','Purple','Blue','Green'];
+var animals = ['Rabbit', 'Dog','Cat','Bird','Hare','Mouse','Lion'];
 
+app.get('/object', (req, res) => {
+   res.status(200).send({
+       color: colors[Math.floor(Math.random() * colors.length-1)+1],
+       animal: animals[Math.floor(Math.random() * animals.length-1)+1]
+   }) 
 });
 
-
-app.post('/tshirt/:id', (req, res) => {
-    const { id } = req.params;
-    const { logo } = req.body;
-
-    if (!logo) {
-        res.status(418).send({ message: 'We need a Logo'})
-    }
-
+app.post('/object', (req,res) => {
+    const { color } = req.body;
+    const { animal } = req.body;
+    
     res.send({
-        tshirt: '😀 with your ${logo} and ID of ${id}',
-    });
-});
-
-
-/*
-const app = require('express')();
-const PORT = 8102;
-
-
-app.listen(
-    PORT, () => console.log('Its live on http://localhost:${PORT}')
-)
-
-
-app.get('/tshirt', (req, res) => {
-    res.status(200).send({
-        tshirt: 'shirt',
-        size: 'medium'
+        color: `${color}`,
+        animal: `${animal}`
     })
 });
-*/
